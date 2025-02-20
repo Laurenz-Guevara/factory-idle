@@ -1,11 +1,13 @@
 import React from "react";
 import { createRoot } from 'react-dom/client';
 
+import Dashboard from "@components/Dashboard"
+
 export default function App() {
   return (
-    <div>
-      <p>Hello World</p>
-    </div>
+    <>
+      <Dashboard />
+    </>
   );
 }
 
