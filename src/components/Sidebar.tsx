@@ -2,7 +2,7 @@ import { Pickaxe, TreePine, Flame, Truck, Fan, Bomb, Octagon, Factory, Droplet, 
 
 export default function SideBar() {
   return (
-    <div className="block fixed left-0 top-0 h-screen bg-gray-800 border-r border-gray-700 transition-all duration-300 z-50 w-64">
+    <div className="block left-0 top-0 h-screen bg-gray-800 border-r border-gray-700 transition-all duration-300 z-50 w-64">
       <div className="flex flex-col h-full">
         <div className="px-4">
           <p className="px-4 py-2 text-lg text-center font-medium rounded-lg text-gray-400 hover:text-white hover:bg-gray-700">Factory Idle</p>
@@ -28,7 +28,10 @@ export default function SideBar() {
             <a className="flex items-center gap-x-2 px-4 py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"><Gem />Selling</a>
           </div>
         </div>
+        <div className="bg-slate-700 mb-6">
+          <p className="text-center text-gray-400">V1.0.0</p>
+        </div>
       </div>
-    </div >
+    </div>
   )
 }
