@@ -1,6 +1,14 @@
 import { Pickaxe, TreePine, Flame, Truck, Fan, Bomb, Octagon, Factory, Droplet, Gem } from 'lucide-react'
+import { useState } from "react"
 
 export default function SideBar() {
+
+  const [selectedOption, setSelectedOption] = useState();
+
+  function selected() {
+
+  }
+
   return (
     <div className="block left-0 top-0 h-screen bg-gray-800 border-r border-gray-700 transition-all duration-300 z-50 w-64">
       <div className="flex flex-col h-full">
@@ -33,7 +41,7 @@ export default function SideBar() {
           <a>Privacy Policy</a>
         </div>
         <div className="bg-slate-700 mb-6">
-          <p className="text-center text-gray-400">V1.0.0</p>
+          <p className="text-center text-gray-400">V0.0.0</p>
         </div>
       </div>
     </div>
