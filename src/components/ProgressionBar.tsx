@@ -1,13 +1,6 @@
-interface SkillAttributes {
-  iconUrl: string;
-  skillName: string;
-  skillLevel: number;
-  skillMaxLevel: number;
-  skillXpMax: number;
-  currentSkillXp: number;
-}
+import { GameSkill } from "@classes/gameSkill"
 
-export default function ProgressionBar({ skill }: { skill: SkillAttributes }) {
+export default function ProgressionBar({ skill }: { skill: GameSkill }) {
   return (
     <div className="mt-auto">
       <div className="flex w-full bg-gray-800 ">
