@@ -6,7 +6,7 @@ interface SidebarProps {
 }
 
 export default function SideBar({ switchPage }: SidebarProps) {
-  const [page, setPage] = useState("Home");
+  const [page, setPage] = useState("Mining");
 
   useEffect(() => {
     switchPage(page)
