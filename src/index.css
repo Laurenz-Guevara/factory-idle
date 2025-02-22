@@ -8,4 +8,8 @@
 
 body {
   @apply bg-darkBlue text-gray-400 text-sm font-medium;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
 }
+
