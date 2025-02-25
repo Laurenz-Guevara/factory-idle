@@ -11,12 +11,11 @@ import WoodcuttingTab from "@components/skills/WoodcuttingTab";
 // import TransportingTab from "@components/skills/TransportingTab";
 // import PowerTab from "@components/skills/PowerTab";
 // import SellingTab from "@components/skills/SellingTab";
-import { GameSkill } from "@classes/gameSkill";
 
 import { usePlayerContext } from "@context/PlayerContext";
 
 export default function Dashboard({ selectedPage }: { selectedPage: string }) {
-  const { state, updateGame } = usePlayerContext();
+  const { state } = usePlayerContext();
   let progressBarSkill;
 
   useEffect(() => {
@@ -33,22 +32,6 @@ export default function Dashboard({ selectedPage }: { selectedPage: string }) {
       case "Woodcutting":
         progressBarSkill = state.skills.woodcutting
         return <WoodcuttingTab />;
-      // case "Oil":
-      //   return <OilTab />;
-      // case "Gas":
-      //   return <GasTab />;
-      // case "Smelting":
-      //   return <SmeltingTab />;
-      // case "Refining":
-      //   return <RefiningTab />;
-      // case "Fracking":
-      //   return <FrackingTab />;
-      // case "Transporting":
-      //   return <TransportingTab />;
-      // case "Power":
-      //   return <PowerTab />;
-      // case "Selling":
-      //   return <SellingTab />;
       default:
         return <p className="text-gray-400 text-center">Select a skill</p>;
     }
