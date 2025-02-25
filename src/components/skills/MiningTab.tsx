@@ -3,7 +3,7 @@ import { usePlayerContext } from "@context/PlayerContext";
 import { updateResource } from "@context/PlayerContext";
 
 export default function MiningTab() {
-  const { playerData, refreshPlayerData } = usePlayerContext();
+  const playerData = usePlayerContext();
   const [activeState, setActiveState] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -27,7 +27,7 @@ export default function MiningTab() {
     if (intervalRef.current) return;
 
     intervalRef.current = setInterval(() => {
-      updateResource("coal", 1, refreshPlayerData);
+      updateResource("coal", 1);
     }, 1000);
   }
 

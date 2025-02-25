@@ -1,7 +1,7 @@
 import { usePlayerContext } from "@context/PlayerContext";
 
 export default function WarehouseTab() {
-  const { playerData } = usePlayerContext();
+  const playerData = usePlayerContext();
   console.log("WAREHOUSE", playerData.warehouse)
 
   return (

@@ -1,20 +1,9 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { Game } from "@classes/Game"
 
-// TODO: When user deletes local storage fix counter not incrementing
+const PlayerContext = createContext<Game | undefined>(undefined)
 
-function playerReducer(state: Game, action: { type: string; payload?: any }) {
-  switch (action.type) {
-    case "SET_PLAYER_DATA":
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-const PlayerContext = createContext<{ playerData: Game; refreshPlayerData: () => void } | null>(null);
-
-const x = {
+const cacheData = {
   name: "Renz",
   warehouse: [
     {
@@ -46,34 +35,24 @@ function getSaveName() {
 let onFirstLoad = true;
 let savedPlayerData: Game | null;
 
-export function updateResource(resource: string, amount: number, refreshPlayerData: () => void) {
+export function updateResource(resource: string, amount: number) {
   const item = savedPlayerData.warehouse.find((item: any) => item.itemName === resource);
 
   if (item) {
     item.itemQuantity += amount;
   }
-  console.log("update", item)
 }
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
   if (onFirstLoad) {
     savedPlayerData = Game.loadFromLocalStorage(getSaveName());
     onFirstLoad = false;
-  }
-
-  const [playerData, dispatch] = useReducer(playerReducer, savedPlayerData);
-
-  function refreshPlayerData() {
-    const newData = Game.loadFromLocalStorage(getSaveName());
-    if (newData) {
-      dispatch({ type: "SET_PLAYER_DATA", payload: newData });
-    } else {
-      dispatch({ type: "SET_PLAYER_DATA", payload: savedPlayerData });
-    }
+  } else {
+    savedPlayerData = cacheData
   }
 
   return (
-    <PlayerContext.Provider value={{ playerData, refreshPlayerData }}>
+    <PlayerContext.Provider value={savedPlayerData}>
       {children}
     </PlayerContext.Provider>
   );

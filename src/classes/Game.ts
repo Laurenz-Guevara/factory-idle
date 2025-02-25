@@ -29,13 +29,18 @@ export class Game {
 
   static loadFromLocalStorage(saveFileName: string): Game | null {
     let savedData = localStorage.getItem("playerData");
-    if (!savedData) {
-      return new Game(saveFileName); // Create a new Game instance
+    if (savedData.length !== 0) {
+      return JSON.parse(savedData)
+    } else {
+      // TODO: Remove and add option to ask if you want to create new save / corrupted save
+      console.log("THIS SHOULD ONLY RUN ONCE")
+      let newGame = new Game(saveFileName);
+      localStorage.setItem("playerData", JSON.stringify(newGame));
+      return newGame
     }
+  }
 
-    const parsedData = JSON.parse(savedData);
-    if (parsedData.name) {
-      return new Game(parsedData.name); // Create a new Game instance
-    }
+  static getFreshSave(saveFileName: string) {
+    return "GENERATE A FRESH SAVE"
   }
 }
