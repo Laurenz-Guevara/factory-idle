@@ -1,19 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { usePlayerContext } from "@context/PlayerContext";
-import { updateResource } from "@context/PlayerContext";
 
 export default function MiningTab() {
-  const playerData = usePlayerContext();
+  const { state, updateGame } = usePlayerContext(); // Access game state and updater
   const [activeState, setActiveState] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // TODO: TURN INTO HOOK
-  function getResourceQuantity(resourceName: string, warehouse: any[]) {
-    const resource = warehouse.find(item => item.itemName === resourceName);
-    return resource ? resource.itemQuantity : 0;
-  }
-
-  // TODO: Turn into skill hook?
   function startSkill() {
     if (!activeState) {
       startMining();
@@ -27,11 +19,10 @@ export default function MiningTab() {
     if (intervalRef.current) return;
 
     intervalRef.current = setInterval(() => {
-      updateResource("coal", 1);
+      updateGame({ type: "UPDATE_RESOURCE", resource: "coal", amount: 1 });
     }, 1000);
   }
 
-  // TODO: Turn into skill hook?
   function stopMining() {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -50,7 +41,7 @@ export default function MiningTab() {
           />
         </div>
         <div className="my-2 h-2 w-full bg-green-400"></div>
-        <p className="text-center">You have {getResourceQuantity('coal', playerData.warehouse)} coal</p>
+        <p>You have {state.warehouse.find((item) => item.itemName === "coal")?.itemQuantity || 0} coal</p>
         <button
           className="mt-2 bg-slate-700 py-1 hover:cursor-pointer"
           onClick={startSkill}

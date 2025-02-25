@@ -1,36 +1,47 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { Game } from "@classes/Game"
 
-const PlayerContext = createContext<Game | undefined>(undefined)
-
-const cacheData = {
-  name: "Renz",
-  warehouse: [
-    {
-      itemId: 0,
-      itemName: "coal",
-      itemImage: "https://cdn-icons-png.flaticon.com/512/176/176598.png",
-      itemQuantity: 0,
-    },
-    {
-      itemId: 1,
-      itemName: "copper",
-      itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
-      itemQuantity: 0,
-    },
-    {
-      itemId: 2,
-      itemName: "diamonds",
-      itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
-      itemQuantity: 0,
-    }
-  ]
+interface PlayerContextType {
+  state: Game;
+  updateGame: (action: GameAction) => void;
 }
+
+const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
+
+const cacheData = new Game("Renz");
 
 function getSaveName() {
   let saveName = "Renzo Save 1"
   return saveName
 }
+
+type GameAction =
+  | { type: "UPDATE_RESOURCE"; resource: string; amount: number }
+// | { type: "UPDATE_NAME"; name: string }
+// | { type: "UPDATE_BANK_SIZE"; size: number }
+// | { type: "RESET_GAME"; newGame: Game };
+
+// Reducer function to handle all updates
+function playerReducer(state: Game, action: GameAction): Game {
+  switch (action.type) {
+    case "UPDATE_RESOURCE":
+      return {
+        ...state,
+        warehouse: state.warehouse.map((item) =>
+          item.itemName === action.resource ? { ...item, itemQuantity: item.itemQuantity + action.amount } : item
+        ),
+      };
+    // case "UPDATE_NAME":
+    //   return { ...state, name: action.name };
+    //   case "UPDATE_BANK_SIZE":
+    //     return { ...state, bankSize: action.size }; // Assuming Game has a `bankSize` property
+    //   case "RESET_GAME":
+    //     return action.newGame;
+    //   default:
+    //     return state;
+  }
+}
+
 
 let onFirstLoad = true;
 let savedPlayerData: Game | null;
@@ -43,26 +54,31 @@ export function updateResource(resource: string, amount: number) {
   }
 }
 
+
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
+  const initialState = onFirstLoad ? Game.loadFromLocalStorage(getSaveName()) ?? cacheData : cacheData;
   if (onFirstLoad) {
     savedPlayerData = Game.loadFromLocalStorage(getSaveName());
     onFirstLoad = false;
   } else {
     savedPlayerData = cacheData
   }
+  onFirstLoad = false;
 
-  return (
-    <PlayerContext.Provider value={savedPlayerData}>
-      {children}
-    </PlayerContext.Provider>
-  );
+  const [state, dispatch] = useReducer(playerReducer, initialState);
+
+  function updateGame(action: GameAction) {
+    console.log("action", action)
+    dispatch(action);
+  }
+
+  return <PlayerContext.Provider value={{ state, updateGame }}>{children}</PlayerContext.Provider>;
 }
 
 export function usePlayerContext() {
   const context = useContext(PlayerContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("usePlayerContext must be used within a PlayerProvider");
   }
   return context;
 }
-
