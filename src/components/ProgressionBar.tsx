@@ -1,7 +1,6 @@
 import { GameSkill } from "@classes/gameSkill"
 
 export default function ProgressionBar({ skill }: { skill: GameSkill }) {
-  console.log("S", skill)
   return (
     <div className="mt-auto">
       <div className="flex w-full bg-gray-800 ">
