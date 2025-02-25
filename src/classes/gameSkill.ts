@@ -1,22 +1,21 @@
 export class GameSkill {
-  iconUrl: string;
   skillName: string;
+  iconUrl: string;
   skillLevel: number;
   skillMaxLevel: number;
-  skillXpMax: number;
   currentSkillXp: number;
+  skillXpMax: number;
 
   constructor(
-    iconUrl: string,
     skillName: string,
+    iconUrl: string,
     skillLevel: number,
-    skillMaxLevel: number,
     currentSkillXp: number
   ) {
-    this.iconUrl = iconUrl;
     this.skillName = skillName;
+    this.iconUrl = iconUrl;
     this.skillLevel = skillLevel;
-    this.skillMaxLevel = skillMaxLevel;
+    this.skillMaxLevel = 99;
     this.currentSkillXp = currentSkillXp;
     this.skillXpMax = this.calculateSkillXpMax(this.skillLevel);
   }

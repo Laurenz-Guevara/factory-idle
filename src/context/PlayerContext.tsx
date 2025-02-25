@@ -17,6 +17,7 @@ function getSaveName() {
 
 type GameAction =
   | { type: "UPDATE_RESOURCE"; resource: string; amount: number }
+  | { type: "SET_ACTIVE_SKILL"; skill: string }
 // | { type: "UPDATE_NAME"; name: string }
 // | { type: "UPDATE_BANK_SIZE"; size: number }
 // | { type: "RESET_GAME"; newGame: Game };
@@ -31,6 +32,10 @@ function playerReducer(state: Game, action: GameAction): Game {
           item.itemName === action.resource ? { ...item, itemQuantity: item.itemQuantity + action.amount } : item
         ),
       };
+    case "SET_ACTIVE_SKILL":
+      return { ...state, activeSkill: action.skill || "" }; // Update active skill
+    default:
+      return state;
     // case "UPDATE_NAME":
     //   return { ...state, name: action.name };
     //   case "UPDATE_BANK_SIZE":

@@ -1,10 +1,16 @@
+import { Skills } from "@classes/Skills"
+
 export class Game {
   name: string;
+  activeSkill: string;
+  skills: any;
   warehouse: { itemId: number; itemName: string; itemImage: string; itemQuantity: number }[];
 
   // TODO: Store a reference of item image so it doesn't get saved to local storage
   constructor(name: string) {
     this.name = name;
+    this.activeSkill = "";
+    this.skills = new Skills;
     this.warehouse = [
       {
         itemId: 0,

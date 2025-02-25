@@ -13,14 +13,11 @@ import WoodcuttingTab from "@components/skills/WoodcuttingTab";
 // import SellingTab from "@components/skills/SellingTab";
 import { GameSkill } from "@classes/gameSkill";
 
+import { usePlayerContext } from "@context/PlayerContext";
+
 export default function Dashboard({ selectedPage }: { selectedPage: string }) {
-  const miningSkill = new GameSkill(
-    "https://cdn-icons-png.flaticon.com/512/18378/18378170.png",
-    "Mining",
-    9,
-    99,
-    44
-  );
+  const { state, updateGame } = usePlayerContext();
+  let progressBarSkill;
 
   useEffect(() => {
     displaySkill(selectedPage)
@@ -31,8 +28,10 @@ export default function Dashboard({ selectedPage }: { selectedPage: string }) {
       case "Warehouse":
         return <WarehouseTab />;
       case "Mining":
+        progressBarSkill = state.skills.mining
         return <MiningTab />;
       case "Woodcutting":
+        progressBarSkill = state.skills.woodcutting
         return <WoodcuttingTab />;
       // case "Oil":
       //   return <OilTab />;
@@ -60,7 +59,7 @@ export default function Dashboard({ selectedPage }: { selectedPage: string }) {
       <div className="w-full h-full p-6">
         {displaySkill(selectedPage)}
       </div>
-      <ProgressionBar skill={miningSkill} />
+      {progressBarSkill ? <ProgressionBar skill={progressBarSkill} /> : ""}
     </div>
   );
 }

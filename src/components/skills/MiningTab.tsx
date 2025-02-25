@@ -3,31 +3,27 @@ import { usePlayerContext } from "@context/PlayerContext";
 
 export default function MiningTab() {
   const { state, updateGame } = usePlayerContext(); // Access game state and updater
-  const [activeState, setActiveState] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  function startSkill() {
-    if (!activeState) {
+  function toggleSkill() {
+    if (state.activeSkill !== "mining") {
+      updateGame({ type: "SET_ACTIVE_SKILL", skill: "mining" });
       startMining();
     } else {
+      updateGame({ type: "SET_ACTIVE_SKILL", skill: "" });
       stopMining();
     }
-    setActiveState(!activeState);
   }
 
   function startMining() {
-    if (intervalRef.current) return;
-
     intervalRef.current = setInterval(() => {
       updateGame({ type: "UPDATE_RESOURCE", resource: "coal", amount: 1 });
     }, 1000);
   }
 
   function stopMining() {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
   }
 
   return (
@@ -44,9 +40,9 @@ export default function MiningTab() {
         <p>You have {state.warehouse.find((item) => item.itemName === "coal")?.itemQuantity || 0} coal</p>
         <button
           className="mt-2 bg-slate-700 py-1 hover:cursor-pointer"
-          onClick={startSkill}
+          onClick={toggleSkill}
         >
-          {activeState ? <p>Stop</p> : <p>Start</p>}
+          {state.activeSkill === "mining" ? <p>Stop</p> : <p>Start</p>}
         </button>
       </div>
     </div>
