@@ -8,6 +8,7 @@ export default function WarehouseTab() {
       {state.warehouse.map((item: any) => (
         <div key={item.itemId} className="bg-gray-800 flex flex-wrap justify-center p-3 mb-6 flex-col min-w-48">
           <p className="text-center">{item.itemName}</p>
+          <p className="text-center">{item.itemId}</p>
           <div className="flex justify-center my-4">
             <img
               src={item.itemImage}

@@ -3,7 +3,8 @@ import { Skills } from "@classes/Skills"
 export class Game {
   name: string;
   activeSkill: string;
-  skills: any;
+  activeItemId: number;
+  skills: Skills;
   warehouse: { itemId: number; itemName: string; itemImage: string; itemQuantity: number }[];
 
   // TODO: Store a reference of item image so it doesn't get saved to local storage
@@ -31,7 +32,7 @@ export class Game {
         itemQuantity: 0,
       },
       {
-        itemId: 3,
+        itemId: 11,
         itemName: "wood",
         itemImage: "https://cdn-icons-png.flaticon.com/512/9067/9067176.png",
         itemQuantity: 0,

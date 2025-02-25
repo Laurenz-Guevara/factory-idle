@@ -1,4 +1,4 @@
-import { GameSkill } from "@classes/gameSkill"
+import { GameSkill } from "@classes/GameSkill"
 
 export default function ProgressionBar({ skill }: { skill: GameSkill }) {
   return (
