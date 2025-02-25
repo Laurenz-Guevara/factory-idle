@@ -1,9 +1,19 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react";
+import { usePlayerContext } from "@context/PlayerContext";
+import { updateResource } from "@context/PlayerContext";
 
-export default function MiningComponent() {
+export default function MiningTab() {
+  const { playerData, refreshPlayerData } = usePlayerContext();
   const [activeState, setActiveState] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // TODO: TURN INTO HOOK
+  function getResourceQuantity(resourceName: string, warehouse: any[]) {
+    const resource = warehouse.find(item => item.itemName === resourceName);
+    return resource ? resource.itemQuantity : 0;
+  }
+
+  // TODO: Turn into skill hook?
   function startSkill() {
     if (!activeState) {
       startMining();
@@ -17,10 +27,11 @@ export default function MiningComponent() {
     if (intervalRef.current) return;
 
     intervalRef.current = setInterval(() => {
-      console.log("Mining...");
+      updateResource("coal", 1, refreshPlayerData);
     }, 1000);
   }
 
+  // TODO: Turn into skill hook?
   function stopMining() {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -31,15 +42,15 @@ export default function MiningComponent() {
   return (
     <div className="flex">
       <div className="bg-gray-800 flex flex-wrap justify-center p-3 flex-col min-w-48">
-        <p className="text-center">Copper</p>
+        <p className="text-center">Coal</p>
         <div className="flex justify-center my-4">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/9460/9460200.png"
+            src="https://cdn-icons-png.flaticon.com/512/176/176598.png"
             className="h-12"
           />
         </div>
         <div className="my-2 h-2 w-full bg-green-400"></div>
-        <p className="text-center">You have 0 copper</p>
+        <p className="text-center">You have {getResourceQuantity('coal', playerData.warehouse)} coal</p>
         <button
           className="mt-2 bg-slate-700 py-1 hover:cursor-pointer"
           onClick={startSkill}
@@ -50,3 +61,4 @@ export default function MiningComponent() {
     </div>
   );
 }
+

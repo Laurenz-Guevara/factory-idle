@@ -1,4 +1,4 @@
-export default function WoodcuttingComponent() {
+export default function WoodcuttingTab() {
   return (
     <div>
       <p>Woodcutting</p>

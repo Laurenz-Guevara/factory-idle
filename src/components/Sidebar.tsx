@@ -1,4 +1,4 @@
-import { Pickaxe, TreePine, Flame, Truck, Fan, Bomb, Octagon, Factory, Droplet, Gem } from 'lucide-react';
+import { Pickaxe, TreePine, Flame, Truck, Fan, Bomb, Octagon, Factory, Droplet, Gem, Warehouse } from 'lucide-react';
 import { useState, useEffect } from "react";
 
 interface SidebarProps {
@@ -6,7 +6,7 @@ interface SidebarProps {
 }
 
 export default function SideBar({ switchPage }: SidebarProps) {
-  const [page, setPage] = useState("Mining");
+  const [page, setPage] = useState("Warehouse");
 
   useEffect(() => {
     switchPage(page)
@@ -20,20 +20,21 @@ export default function SideBar({ switchPage }: SidebarProps) {
         </div>
         <div className="flex-1 px-4 space-y-4">
           <div>
+            <button onClick={() => setPage("Warehouse")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Warehouse />Warehouse</button>
+          </div>
+          <div>
             <p className="px-4 text-sm font-medium text-gray-500">Extraction</p>
             <button onClick={() => setPage("Mining")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Pickaxe />Mining</button>
             <button onClick={() => setPage("Woodcutting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><TreePine />Woodcutting</button>
             <button onClick={() => setPage("Oil")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Droplet />Oil</button>
             <button onClick={() => setPage("Gas")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Octagon />Gas</button>
           </div>
-
           <div>
             <p className="px-4 text-sm font-medium text-gray-500">Production</p>
             <button onClick={() => setPage("Smelting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Flame />Smelting</button>
             <button onClick={() => setPage("Refining")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Factory />Refining</button>
             <button onClick={() => setPage("Fracking")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Bomb />Fracking</button>
           </div>
-
           <div>
             <p className="px-4 text-sm font-medium text-gray-500">Other</p>
             <button onClick={() => setPage("Transporting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Truck />Transporting</button>
@@ -41,12 +42,10 @@ export default function SideBar({ switchPage }: SidebarProps) {
             <button onClick={() => setPage("Selling")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Gem />Selling</button>
           </div>
         </div>
-
         <div className="grid grid-rows-2 px-4 py-2 space-y-2">
           <a>Report a bug</a>
           <a>Privacy Policy</a>
         </div>
-
         <div className="bg-slate-700 mb-6">
           <p className="text-center text-gray-400">V0.0.0</p>
         </div>

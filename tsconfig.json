@@ -19,6 +19,9 @@
       "@classes/*": [
         "./classes/*"
       ],
+      "@context/*": [
+        "./context/*"
+      ],
     },
   }
 }

@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import ProgressionBar from "@components/ProgressionBar";
-import MiningComponent from "@components/skills/MiningComponent";
-import WoodcuttingComponent from "@components/skills/WoodcuttingComponent";
-// import OilComponent from "@components/skills/OilComponent";
-// import GasComponent from "@components/skills/GasComponent";
-// import SmeltingComponent from "@components/skills/SmeltingComponent";
-// import RefiningComponent from "@components/skills/RefiningComponent";
-// import FrackingComponent from "@components/skills/FrackingComponent";
-// import TransportingComponent from "@components/skills/TransportingComponent";
-// import PowerComponent from "@components/skills/PowerComponent";
-// import SellingComponent from "@components/skills/SellingComponent";
+import WarehouseTab from "./storage/WarehouseTab";
+import MiningTab from "@components/skills/MiningTab";
+import WoodcuttingTab from "@components/skills/WoodcuttingTab";
+// import OilTab from "@components/skills/OilTab";
+// import GasTab from "@components/skills/GasTab";
+// import SmeltingTab from "@components/skills/SmeltingTab";
+// import RefiningTab from "@components/skills/RefiningTab";
+// import FrackingTab from "@components/skills/FrackingTab";
+// import TransportingTab from "@components/skills/TransportingTab";
+// import PowerTab from "@components/skills/PowerTab";
+// import SellingTab from "@components/skills/SellingTab";
 import { GameSkill } from "@classes/gameSkill";
 
 export default function Dashboard({ selectedPage }: { selectedPage: string }) {
@@ -27,26 +28,28 @@ export default function Dashboard({ selectedPage }: { selectedPage: string }) {
 
   function displaySkill(selectedPage: string) {
     switch (selectedPage) {
+      case "Warehouse":
+        return <WarehouseTab />;
       case "Mining":
-        return <MiningComponent />;
+        return <MiningTab />;
       case "Woodcutting":
-        return <WoodcuttingComponent />;
+        return <WoodcuttingTab />;
       // case "Oil":
-      //   return <OilComponent />;
+      //   return <OilTab />;
       // case "Gas":
-      //   return <GasComponent />;
+      //   return <GasTab />;
       // case "Smelting":
-      //   return <SmeltingComponent />;
+      //   return <SmeltingTab />;
       // case "Refining":
-      //   return <RefiningComponent />;
+      //   return <RefiningTab />;
       // case "Fracking":
-      //   return <FrackingComponent />;
+      //   return <FrackingTab />;
       // case "Transporting":
-      //   return <TransportingComponent />;
+      //   return <TransportingTab />;
       // case "Power":
-      //   return <PowerComponent />;
+      //   return <PowerTab />;
       // case "Selling":
-      //   return <SellingComponent />;
+      //   return <SellingTab />;
       default:
         return <p className="text-gray-400 text-center">Select a skill</p>;
     }

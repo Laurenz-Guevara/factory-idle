@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { createRoot } from 'react-dom/client';
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
 
-import Dashboard from "@components/Dashboard"
-import Sidebar from "@components/Sidebar"
-
+import Dashboard from "@components/Dashboard";
+import Sidebar from "@components/Sidebar";
+import { PlayerProvider } from "@context/PlayerContext";
 
 export default function App() {
   const [page, setPage] = useState<string | null>("Home");
@@ -14,10 +13,12 @@ export default function App() {
   };
 
   return (
-    <div className="flex">
-      <Sidebar switchPage={handleChildData} />
-      <Dashboard selectedPage={page} />
-    </div>
+    <PlayerProvider>
+      <div className="flex">
+        <Sidebar switchPage={handleChildData} />
+        <Dashboard selectedPage={page} />
+      </div>
+    </PlayerProvider>
   );
 }
 
