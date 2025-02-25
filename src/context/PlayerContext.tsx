@@ -15,7 +15,9 @@ function getSaveName() {
   return saveName
 }
 
+// TODO: ENUM for skill name
 type GameAction =
+  | { type: "UPDATE_SKILL_AND_XP"; skillName: string, xp: number }
   | { type: "UPDATE_RESOURCE"; resource: string; amount: number }
   | { type: "SET_ACTIVE_SKILL"; skill: string }
 // | { type: "UPDATE_NAME"; name: string }
@@ -25,6 +27,17 @@ type GameAction =
 // Reducer function to handle all updates
 function playerReducer(state: Game, action: GameAction): Game {
   switch (action.type) {
+    case "UPDATE_SKILL_AND_XP":
+      return {
+        ...state,
+        skills: {
+          ...state.skills,
+          [action.skillName]: {
+            ...state.skills[action.skillName],
+            currentSkillXp: state.skills[action.skillName].currentSkillXp + action.xp
+          }
+        }
+      };
     case "UPDATE_RESOURCE":
       return {
         ...state,
@@ -34,6 +47,7 @@ function playerReducer(state: Game, action: GameAction): Game {
       };
     case "SET_ACTIVE_SKILL":
       return { ...state, activeSkill: action.skill || "" }; // Update active skill
+
     default:
       return state;
     // case "UPDATE_NAME":

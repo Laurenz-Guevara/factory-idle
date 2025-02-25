@@ -18,6 +18,7 @@ export default function MiningTab() {
   function startMining() {
     intervalRef.current = setInterval(() => {
       updateGame({ type: "UPDATE_RESOURCE", resource: "coal", amount: 1 });
+      updateGame({ type: "UPDATE_SKILL_AND_XP", skillName: "mining", xp: 10 });
     }, 1000);
   }
 
