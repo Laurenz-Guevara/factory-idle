@@ -1,30 +1,10 @@
-import { useState, useRef } from "react";
 import { usePlayerContext } from "@context/PlayerContext";
 
 export default function MiningTab() {
-  const { state, updateGame } = usePlayerContext(); // Access game state and updater
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { state, updateGame } = usePlayerContext();
 
   function toggleSkill() {
-    if (state.activeSkill !== "mining") {
-      updateGame({ type: "SET_ACTIVE_SKILL", skill: "mining" });
-      startMining();
-    } else {
-      updateGame({ type: "SET_ACTIVE_SKILL", skill: "" });
-      stopMining();
-    }
-  }
-
-  function startMining() {
-    intervalRef.current = setInterval(() => {
-      updateGame({ type: "UPDATE_RESOURCE", resource: "coal", amount: 1 });
-      updateGame({ type: "UPDATE_SKILL_AND_XP", skillName: "mining", xp: 10 });
-    }, 1000);
-  }
-
-  function stopMining() {
-    clearInterval(intervalRef.current);
-    intervalRef.current = null;
+    updateGame({ type: "SET_ACTIVE_SKILL", skill: state.activeSkill === "mining" ? "" : "mining" });
   }
 
   return (

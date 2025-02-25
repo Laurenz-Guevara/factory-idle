@@ -29,6 +29,12 @@ export class Game {
         itemName: "diamonds",
         itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
         itemQuantity: 0,
+      },
+      {
+        itemId: 3,
+        itemName: "wood",
+        itemImage: "https://cdn-icons-png.flaticon.com/512/9067/9067176.png",
+        itemQuantity: 0,
       }
     ]
   }

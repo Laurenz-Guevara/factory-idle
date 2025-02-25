@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useRef } from "react";
 import { Game } from "@classes/Game"
 
 interface PlayerContextType {
@@ -20,9 +20,6 @@ type GameAction =
   | { type: "UPDATE_SKILL_AND_XP"; skillName: string, xp: number }
   | { type: "UPDATE_RESOURCE"; resource: string; amount: number }
   | { type: "SET_ACTIVE_SKILL"; skill: string }
-// | { type: "UPDATE_NAME"; name: string }
-// | { type: "UPDATE_BANK_SIZE"; size: number }
-// | { type: "RESET_GAME"; newGame: Game };
 
 // Reducer function to handle all updates
 function playerReducer(state: Game, action: GameAction): Game {
@@ -46,21 +43,12 @@ function playerReducer(state: Game, action: GameAction): Game {
         ),
       };
     case "SET_ACTIVE_SKILL":
-      return { ...state, activeSkill: action.skill || "" }; // Update active skill
+      return { ...state, activeSkill: action.skill || "" };
 
     default:
       return state;
-    // case "UPDATE_NAME":
-    //   return { ...state, name: action.name };
-    //   case "UPDATE_BANK_SIZE":
-    //     return { ...state, bankSize: action.size }; // Assuming Game has a `bankSize` property
-    //   case "RESET_GAME":
-    //     return action.newGame;
-    //   default:
-    //     return state;
   }
 }
-
 
 let onFirstLoad = true;
 let savedPlayerData: Game | null;
@@ -72,7 +60,6 @@ export function updateResource(resource: string, amount: number) {
     item.itemQuantity += amount;
   }
 }
-
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
   const initialState = onFirstLoad ? Game.loadFromLocalStorage(getSaveName()) ?? cacheData : cacheData;
@@ -90,6 +77,40 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     console.log("action", action)
     dispatch(action);
   }
+
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  function gameTick() {
+    if (!state.activeSkill) return;
+
+    switch (state.activeSkill) {
+      case "mining":
+        updateGame({ type: "UPDATE_RESOURCE", resource: "coal", amount: 1 });
+        updateGame({ type: "UPDATE_SKILL_AND_XP", skillName: "mining", xp: 10 });
+        break;
+      case "woodcutting":
+        updateGame({ type: "UPDATE_RESOURCE", resource: "wood", amount: 1 });
+        updateGame({ type: "UPDATE_SKILL_AND_XP", skillName: "woodcutting", xp: 10 });
+        break;
+    }
+  }
+
+  useEffect(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    if (state.activeSkill) {
+      intervalRef.current = setInterval(() => {
+        gameTick();
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [state.activeSkill]);
 
   return <PlayerContext.Provider value={{ state, updateGame }}>{children}</PlayerContext.Provider>;
 }
