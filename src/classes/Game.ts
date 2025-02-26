@@ -15,25 +15,25 @@ export class Game {
     this.warehouse = [
       {
         itemId: 0,
-        itemName: "coal",
+        itemName: "Coal",
         itemImage: "https://cdn-icons-png.flaticon.com/512/176/176598.png",
         itemQuantity: 0,
       },
       {
         itemId: 1,
-        itemName: "copper",
+        itemName: "Copper",
         itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
         itemQuantity: 0,
       },
       {
         itemId: 2,
-        itemName: "diamonds",
+        itemName: "Diamonds",
         itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
         itemQuantity: 0,
       },
       {
         itemId: 11,
-        itemName: "wood",
+        itemName: "Wood",
         itemImage: "https://cdn-icons-png.flaticon.com/512/9067/9067176.png",
         itemQuantity: 0,
       }
