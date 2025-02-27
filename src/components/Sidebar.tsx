@@ -21,6 +21,7 @@ export default function SideBar({ switchPage }: SidebarProps) {
         <div className="flex-1 px-4 space-y-4">
           <div>
             <button onClick={() => setPage("Warehouse")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Warehouse />Warehouse</button>
+            <button onClick={() => setPage("Selling")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Gem />Shop</button>
           </div>
           <div>
             <p className="px-4 text-sm font-medium text-gray-500">Extraction</p>
@@ -39,7 +40,6 @@ export default function SideBar({ switchPage }: SidebarProps) {
             <p className="px-4 text-sm font-medium text-gray-500">Other</p>
             <button onClick={() => setPage("Transporting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Truck />Transporting</button>
             <button onClick={() => setPage("Power")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Fan />Power</button>
-            <button onClick={() => setPage("Selling")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Gem />Selling</button>
           </div>
         </div>
         <div className="grid grid-rows-2 px-4 py-2 space-y-2">
