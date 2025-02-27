@@ -1,4 +1,4 @@
-import { gameItems } from "@classes/GameItems"
+import { gameItems, WarehouseItem, Items } from "@classes/GameItems"
 import { Skills } from "@classes/Skills"
 
 export class Game {
@@ -6,7 +6,7 @@ export class Game {
   activeSkill: string;
   activeItemId: number;
   skills: Skills;
-  warehouse: { itemId: number; itemName: string; itemImage: string; itemQuantity: number }[];
+  warehouse: Array<WarehouseItem>;
   warehouseSize: number;
 
   constructor(name: string) {
@@ -18,12 +18,11 @@ export class Game {
     this.warehouseSize = 8
   }
 
-  static getResourceData(itemId: number) {
+  static getResourceData(itemId: number): Items {
     for (const [_, category] of Object.entries(gameItems)) {
-      const foundItem = category.find((item) => item.itemId === itemId);
+      const foundItem = category.find((item: Items) => item.itemId === itemId);
 
       if (foundItem) {
-        console.log("Found item:", foundItem);
         return foundItem;
       }
     }

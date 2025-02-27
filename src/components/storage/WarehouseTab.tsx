@@ -21,7 +21,7 @@ export default function WarehouseTab() {
               <>
                 <p className="text-center">{item.itemName}</p>
                 <div className="flex justify-center">
-                  <img src={item.itemImage} className="h-12" />
+                  <img src={item.imgSrc} className="h-12" />
                 </div>
                 <p className="text-center pt-3">
                   {item.itemQuantity}

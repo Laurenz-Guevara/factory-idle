@@ -37,25 +37,22 @@ function playerReducer(state: Game, action: GameAction): Game {
         }
       };
     case "UPDATE_RESOURCE":
-      let { itemName, imgSrc } = Game.getResourceData(state.activeItemId)
+      let item = Game.getResourceData(state.activeItemId)
 
       return {
         ...state,
-        warehouse: state.warehouse.some(item => item.itemId === action.activeItemId)
-          ? state.warehouse.map((item) =>
-            item.itemId === action.activeItemId
-              ? { ...item, itemQuantity: item.itemQuantity + action.amount }
-              : item
-          )
-          : [
+        warehouse: state.warehouse.find(item => item.itemId === action.activeItemId) ?
+          state.warehouse.map((item) => item.itemId === action.activeItemId ? { ...item, itemQuantity: item.itemQuantity + action.amount } : item)
+          :
+          [
             ...state.warehouse,
             {
               itemId: action.activeItemId,
-              itemName: action.itemName || itemName,
-              itemImage: action.itemImage || imgSrc,
+              itemName: item.itemName,
+              imgSrc: item.imgSrc,
+              itemValue: item.itemValue,
               itemQuantity: action.amount,
-            }
-          ],
+            }]
       };
     case "SET_ACTIVE_SKILL":
       return { ...state, activeSkill: action.skill || "", activeItemId: action.activeItemId };

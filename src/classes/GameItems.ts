@@ -1,14 +1,18 @@
-interface GameItems {
+export interface GameItems {
   miningItems: Array<Items>
   woodcuttingItems: Array<Items>
   smeltedItems: Array<Items>
 }
 
-interface Items {
+export interface Items {
   itemId: number,
   itemName: string,
   imgSrc: string,
   itemValue: number,
+}
+
+export interface WarehouseItem extends Items {
+  itemQuantity: number;
 }
 
 export const gameItems: GameItems = {
