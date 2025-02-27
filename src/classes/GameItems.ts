@@ -2,7 +2,7 @@ export const gameItems = {
   miningItems: [
     {
       itemId: 0,
-      itemName: "coal",
+      itemName: "Coal",
       imgSrc: "https://cdn-icons-png.flaticon.com/512/176/176598.png",
       itemValue: 5,
     },
@@ -40,24 +40,18 @@ export const gameItems = {
   woodcuttingItems: [
     {
       itemId: 11,
-      itemName: "Wood",
-      imgSrc: "https://cdn-icons-png.flaticon.com/512/9067/9067176.png",
-      itemValue: 5,
-    },
-    {
-      itemId: 12,
       itemName: "Oak Wood",
       imgSrc: "https://cdn-icons-png.flaticon.com/512/9067/9067176.png",
       itemValue: 10,
     },
     {
-      itemId: 13,
+      itemId: 12,
       itemName: "Pine Wood",
       imgSrc: "https://cdn-icons-png.flaticon.com/512/3577/3577899.png",
       itemValue: 400,
     },
     {
-      itemId: 14,
+      itemId: 13,
       itemName: "Rainbow Wood",
       imgSrc: "https://cdn-icons-png.flaticon.com/512/4886/4886572.png",
       itemValue: 250,
