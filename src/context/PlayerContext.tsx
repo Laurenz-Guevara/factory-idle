@@ -20,7 +20,7 @@ function getSaveName(): string {
 // TODO: ENUM for skill name
 type GameAction =
   | { type: "UPDATE_SKILL_AND_XP"; skillName: keyof Skills, xp: number }
-  | { type: "UPDATE_RESOURCE"; activeItemId: number; amount: number }
+  | { type: "UPDATE_RESOURCE"; activeItemId: number; amount: number, itemName: string, itemImage: string }
   | { type: "SET_ACTIVE_SKILL"; skill: string, activeItemId: number }
 
 function playerReducer(state: Game, action: GameAction): Game {
@@ -37,11 +37,25 @@ function playerReducer(state: Game, action: GameAction): Game {
         }
       };
     case "UPDATE_RESOURCE":
+      let { itemName, imgSrc } = Game.getResourceData(state.activeItemId)
+
       return {
         ...state,
-        warehouse: state.warehouse.map((item) =>
-          item.itemId === action.activeItemId ? { ...item, itemQuantity: item.itemQuantity + action.amount } : item
-        ),
+        warehouse: state.warehouse.some(item => item.itemId === action.activeItemId)
+          ? state.warehouse.map((item) =>
+            item.itemId === action.activeItemId
+              ? { ...item, itemQuantity: item.itemQuantity + action.amount }
+              : item
+          )
+          : [
+            ...state.warehouse,
+            {
+              itemId: action.activeItemId,
+              itemName: action.itemName || itemName,
+              itemImage: action.itemImage || imgSrc,
+              itemQuantity: action.amount,
+            }
+          ],
       };
     case "SET_ACTIVE_SKILL":
       return { ...state, activeSkill: action.skill || "", activeItemId: action.activeItemId };
@@ -105,7 +119,7 @@ export function PlayerProvider({ children }: { children: React.ReactNode }) {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [state.activeSkill]);
+  }, [state.activeSkill, state.activeItemId]);
 
   return <PlayerContext.Provider value={{ state, updateGame }}>{children}</PlayerContext.Provider>;
 }

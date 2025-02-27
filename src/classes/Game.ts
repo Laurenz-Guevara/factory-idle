@@ -1,3 +1,4 @@
+import { gameItems } from "@classes/GameItems"
 import { Skills } from "@classes/Skills"
 
 export class Game {
@@ -6,6 +7,7 @@ export class Game {
   activeItemId: number;
   skills: Skills;
   warehouse: { itemId: number; itemName: string; itemImage: string; itemQuantity: number }[];
+  warehouseSize: number;
 
   // TODO: Store a reference of item image so it doesn't get saved to local storage
   constructor(name: string) {
@@ -13,32 +15,22 @@ export class Game {
     this.activeSkill = "";
     this.activeItemId = 0;
     this.skills = new Skills;
-    this.warehouse = [
-      {
-        itemId: 0,
-        itemName: "Coal",
-        itemImage: "https://cdn-icons-png.flaticon.com/512/176/176598.png",
-        itemQuantity: 0,
-      },
-      {
-        itemId: 1,
-        itemName: "Copper",
-        itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
-        itemQuantity: 0,
-      },
-      {
-        itemId: 2,
-        itemName: "Diamonds",
-        itemImage: "https://cdn-icons-png.flaticon.com/512/9460/9460200.png",
-        itemQuantity: 0,
-      },
-      {
-        itemId: 11,
-        itemName: "Wood",
-        itemImage: "https://cdn-icons-png.flaticon.com/512/9067/9067176.png",
-        itemQuantity: 0,
+    this.warehouse = [];
+    this.warehouseSize = 8
+  }
+
+  static getResourceData(itemId: number) {
+    for (const [_, category] of Object.entries(gameItems)) {
+      const foundItem = category.find((item) => item.itemId === itemId);
+
+      if (foundItem) {
+        console.log("Found item:", foundItem);
+        return foundItem;
       }
-    ]
+    }
+
+    console.warn("Item not found:", itemId);
+    return null;
   }
 
   static loadFromLocalStorage(saveFileName: string): Game | null {

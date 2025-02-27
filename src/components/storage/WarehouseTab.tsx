@@ -1,11 +1,12 @@
 import { usePlayerContext } from "@context/PlayerContext";
 
 export default function WarehouseTab() {
-  const { state, updateGame } = usePlayerContext(); // Access game state and updater
+  const { state } = usePlayerContext();
+  console.log(state.warehouse.length)
 
   // Ensure at least 16 slots, filling empty ones with placeholders
   const warehouseItems = state.warehouse
-    .concat(Array(Math.max(0, 8 - state.warehouse.length)).fill(null));
+    .concat(Array(Math.max(0, state.warehouseSize - state.warehouse.length)).fill(null));
 
   return (
     <div className="flex flex-wrap gap-4">
@@ -15,7 +16,7 @@ export default function WarehouseTab() {
           className={`bg-gray-800 grid items-center w-40 h-40 "
             }`}
         >
-          <button className="w-full h-full p-3 hover:cursor-pointer" onClick={() => console.log("hi", item.itemName)}>
+          <button className="w-full h-full p-3 hover:cursor-pointer" onClick={() => console.log(item ? item.itemName : "Empty Slot")}>
             {item ? (
               <>
                 <p className="text-center">{item.itemName}</p>
