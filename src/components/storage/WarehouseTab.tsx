@@ -3,24 +3,35 @@ import { usePlayerContext } from "@context/PlayerContext";
 export default function WarehouseTab() {
   const { state, updateGame } = usePlayerContext(); // Access game state and updater
 
+  // Ensure at least 16 slots, filling empty ones with placeholders
+  const warehouseItems = state.warehouse
+    .concat(Array(Math.max(0, 8 - state.warehouse.length)).fill(null));
+
   return (
-    <div className="flex flex-wrap space-x-6">
-      {state.warehouse.map((item: any) => (
-        <div key={item.itemId} className="bg-gray-800 flex flex-wrap justify-center p-3 mb-6 flex-col min-w-48">
-          <p className="text-center">{item.itemName}</p>
-          <p className="text-center">{item.itemId}</p>
-          <div className="flex justify-center my-4">
-            <img
-              src={item.itemImage}
-              className="h-12"
-            />
-          </div>
-          <p className="text-center">You have {item.itemQuantity} {item.itemName}</p>
-          <button
-            className="mt-2 bg-slate-700 py-1 hover:cursor-pointer"
-            onClick={() => console.log("Sell")}
-          >
-            Sell X1
+    <div className="flex flex-wrap gap-4">
+      {warehouseItems.map((item: any, index: number) => (
+        <div
+          key={item ? item.itemId : `empty-${index}`}
+          className={`bg-gray-800 grid items-center w-40 h-40 "
+            }`}
+        >
+          <button className="w-full h-full p-3 hover:cursor-pointer" onClick={() => console.log("hi", item.itemName)}>
+            {item ? (
+              <>
+                <p className="text-center">{item.itemName}</p>
+                <div className="flex justify-center">
+                  <img src={item.itemImage} className="h-12" />
+                </div>
+                <p className="text-center pt-3">
+                  You have {item.itemQuantity} {item.itemName}
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="flex justify-center my-4">
+                </div>
+              </>
+            )}
           </button>
         </div>
       ))}
