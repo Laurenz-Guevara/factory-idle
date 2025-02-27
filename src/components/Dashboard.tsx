@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { PAGETABS } from "@src/types/SkillTypes"
 import ProgressionBar from "@components/ProgressionBar";
 import WarehouseTab from "./storage/WarehouseTab";
 import MiningTab from "@components/skills/MiningTab";
@@ -24,12 +25,12 @@ export default function Dashboard({ selectedPage }: { selectedPage: string }) {
 
   function displaySkill(selectedPage: string) {
     switch (selectedPage) {
-      case "Warehouse":
+      case PAGETABS.WAREHOUSE:
         return <WarehouseTab />;
-      case "Mining":
+      case PAGETABS.MINING:
         progressBarSkill = state.skills.mining
         return <MiningTab />;
-      case "Woodcutting":
+      case PAGETABS.WOODCUTTING:
         progressBarSkill = state.skills.woodcutting
         return <WoodcuttingTab />;
       default:

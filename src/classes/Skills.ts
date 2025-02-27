@@ -1,4 +1,5 @@
 import { GameSkill } from "@classes/GameSkill"
+// import { SKILL } from "@src/types/SkillTypes"
 
 export class Skills {
   mining: GameSkill;

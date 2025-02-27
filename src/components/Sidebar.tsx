@@ -1,5 +1,7 @@
 import { Pickaxe, TreePine, Flame, Truck, Fan, Bomb, Octagon, Factory, Droplet, Gem, Warehouse } from 'lucide-react';
 import { useState, useEffect } from "react";
+import { PAGETABS } from "@src/types/SkillTypes"
+
 
 interface SidebarProps {
   switchPage: (page: string) => void;
@@ -25,21 +27,21 @@ export default function SideBar({ switchPage }: SidebarProps) {
           </div>
           <div>
             <p className="px-4 text-sm font-medium text-gray-500">Extraction</p>
-            <button onClick={() => setPage("Mining")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Pickaxe />Mining</button>
-            <button onClick={() => setPage("Woodcutting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><TreePine />Woodcutting</button>
-            <button onClick={() => setPage("Oil")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Droplet />Oil</button>
-            <button onClick={() => setPage("Gas")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Octagon />Gas</button>
+            <button onClick={() => setPage(PAGETABS.MINING)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Pickaxe />Mining</button>
+            <button onClick={() => setPage(PAGETABS.WOODCUTTING)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><TreePine />Woodcutting</button>
+            <button onClick={() => setPage(PAGETABS.OIL)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Droplet />Oil</button>
+            <button onClick={() => setPage(PAGETABS.GAS)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Octagon />Gas</button>
           </div>
           <div>
             <p className="px-4 text-sm font-medium text-gray-500">Production</p>
-            <button onClick={() => setPage("Smelting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Flame />Smelting</button>
-            <button onClick={() => setPage("Refining")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Factory />Refining</button>
-            <button onClick={() => setPage("Fracking")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Bomb />Fracking</button>
+            <button onClick={() => setPage(PAGETABS.SMELTING)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Flame />Smelting</button>
+            <button onClick={() => setPage(PAGETABS.REFINING)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Factory />Refining</button>
+            <button onClick={() => setPage(PAGETABS.FRACKING)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Bomb />Fracking</button>
           </div>
           <div>
             <p className="px-4 text-sm font-medium text-gray-500">Other</p>
-            <button onClick={() => setPage("Transporting")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Truck />Transporting</button>
-            <button onClick={() => setPage("Power")} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Fan />Power</button>
+            <button onClick={() => setPage(PAGETABS.TRANSPORTING)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Truck />Transporting</button>
+            <button onClick={() => setPage(PAGETABS.POWER)} className="flex items-center w-full gap-x-2 px-4 py-2 hover:bg-gray-700 cursor-pointer"><Fan />Power</button>
           </div>
         </div>
         <div className="grid grid-rows-2 px-4 py-2 space-y-2">

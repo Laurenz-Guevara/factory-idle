@@ -1,14 +1,14 @@
 import { gameItems } from "@classes/GameItems";
 import { usePlayerContext } from "@context/PlayerContext";
+import { SKILL } from "@src/types/SkillTypes"
 
 export default function WoodcuttingTab() {
   const { state, updateGame } = usePlayerContext();
 
-  // TODO: Add enums and pass through
   function toggleSkill(itemId: number) {
     updateGame({
       type: "SET_ACTIVE_SKILL",
-      skill: state.activeSkill === "woodcutting" && state.activeItemId === itemId ? "" : "woodcutting",
+      skill: state.activeSkill === SKILL.WOODCUTTING && state.activeItemId === itemId ? "" : SKILL.WOODCUTTING,
       activeItemId: itemId
     });
   }
@@ -30,7 +30,7 @@ export default function WoodcuttingTab() {
             className="mt-2 bg-slate-700 py-1 hover:cursor-pointer"
             onClick={() => toggleSkill(item.itemId)}
           >
-            {state.activeSkill === "woodcutting" && state.activeItemId === item.itemId ? <p>Stop</p> : <p>Start</p>}
+            {state.activeSkill === SKILL.WOODCUTTING && state.activeItemId === item.itemId ? <p>Stop</p> : <p>Start</p>}
           </button>
         </div>
       )}

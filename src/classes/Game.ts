@@ -9,7 +9,6 @@ export class Game {
   warehouse: { itemId: number; itemName: string; itemImage: string; itemQuantity: number }[];
   warehouseSize: number;
 
-  // TODO: Store a reference of item image so it doesn't get saved to local storage
   constructor(name: string) {
     this.name = name;
     this.activeSkill = "";
