@@ -11,6 +11,7 @@ export class Game {
   constructor(name: string) {
     this.name = name;
     this.activeSkill = "";
+    this.activeItemId = 0;
     this.skills = new Skills;
     this.warehouse = [
       {

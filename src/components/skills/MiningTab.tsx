@@ -4,8 +4,13 @@ import { usePlayerContext } from "@context/PlayerContext";
 export default function MiningTab() {
   const { state, updateGame } = usePlayerContext();
 
+  // TODO: Add enums and pass through
   function toggleSkill(itemId: number) {
-    updateGame({ type: "SET_ACTIVE_SKILL", skill: state.activeSkill === "mining" ? "" : "mining", activeItemId: itemId });
+    updateGame({
+      type: "SET_ACTIVE_SKILL",
+      skill: state.activeSkill === "woodcutting" && state.activeItemId === itemId ? "" : "woodcutting",
+      activeItemId: itemId
+    });
   }
 
   return (
