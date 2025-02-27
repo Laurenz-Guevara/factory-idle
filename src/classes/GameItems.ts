@@ -1,4 +1,17 @@
-export const gameItems = {
+interface GameItems {
+  miningItems: Array<Items>
+  woodcuttingItems: Array<Items>
+  smeltedItems: Array<Items>
+}
+
+interface Items {
+  itemId: number,
+  itemName: string,
+  imgSrc: string,
+  itemValue: number,
+}
+
+export const gameItems: GameItems = {
   miningItems: [
     {
       itemId: 0,
