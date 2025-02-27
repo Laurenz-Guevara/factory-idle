@@ -24,7 +24,7 @@ export default function WarehouseTab() {
                   <img src={item.itemImage} className="h-12" />
                 </div>
                 <p className="text-center pt-3">
-                  You have {item.itemQuantity} {item.itemName}
+                  {item.itemQuantity}
                 </p>
               </>
             ) : (
